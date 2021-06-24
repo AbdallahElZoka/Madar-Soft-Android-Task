@@ -73,13 +73,19 @@ class AddApplicantDataViewModel @Inject constructor(val roomDatabase: Applicants
             return false
         }
 
-        handleIntent(ApplicantModel(
-            applicantName = name,
-            jobTitle = jobTitle,
-            gender = gender,
-            age = age.toInt()
-        ))
+        handleIntent(
+            ApplicantModel(
+                applicantName = name,
+                jobTitle = jobTitle,
+                gender = gender,
+                age = age.toInt()
+            )
+        )
         return true
+    }
+
+    fun navigateToShowApplicantsDetailsActivity() {
+        navigator?.navigateToShowApplicantsDetailsActivity()
     }
 
 
