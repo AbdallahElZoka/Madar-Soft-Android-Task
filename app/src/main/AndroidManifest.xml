@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MadarSoftAndroidTask">
+        <activity android:name=".ShowApplicantsDetailsActivity"></activity>
         <activity
             android:name=".AddApplicantDataActivity"
             android:windowSoftInputMode="adjustResize">

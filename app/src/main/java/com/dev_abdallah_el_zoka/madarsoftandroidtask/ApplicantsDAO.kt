@@ -9,8 +9,8 @@ import androidx.room.Query
 interface ApplicantsDAO {
 
     @Insert(entity = ApplicantModel::class, onConflict = OnConflictStrategy.REPLACE)
-    fun insertApplicantDataIntoRoomDatabase(applicantModel: ApplicantModel)
+    suspend fun insertApplicantDataIntoRoomDatabase(applicantModel: ApplicantModel)
 
     @Query("SELECT * FROM `Applicants Table`")
-    fun getAllApplicantsFromRoomDatabase(): List<ApplicantModel>
+    suspend fun getAllApplicantsFromRoomDatabase(): List<ApplicantModel>
 }

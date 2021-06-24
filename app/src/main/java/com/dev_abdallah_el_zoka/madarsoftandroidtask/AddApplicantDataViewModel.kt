@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @InternalCoroutinesApi
 @HiltViewModel
-class AddApplicantDataViewModel @Inject constructor(val roomDatabase: ApplicantsRoomDatabase) :
+class AddApplicantDataViewModel @Inject constructor(val applicantsRepository: ApplicantsRepository) :
     ViewModel() {
 
     val nameErrorStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
@@ -23,9 +23,9 @@ class AddApplicantDataViewModel @Inject constructor(val roomDatabase: Applicants
 
     var navigator: Navigator? = null
 
-    val userIntent = Channel<MainIntent>(Channel.CONFLATED)
-    private val _state = MutableStateFlow<MainState>(MainState.Idle)
-    val state: StateFlow<MainState> get() = _state
+    val userIntent = Channel<SaveApplicantsIntent>(Channel.CONFLATED)
+    private val _state = MutableStateFlow<SaveApplicantsState>(SaveApplicantsState.Idle)
+    val applicantsState: StateFlow<SaveApplicantsState> get() = _state
 
 
     @InternalCoroutinesApi
@@ -33,7 +33,7 @@ class AddApplicantDataViewModel @Inject constructor(val roomDatabase: Applicants
         viewModelScope.launch {
             userIntent.consumeAsFlow().collect {
                 when (it) {
-                    is MainIntent.SaveApplicant -> saveApplicantInDatabase(applicantModel = applicantModel)
+                    is SaveApplicantsIntent.SaveApplicants -> saveApplicantInDatabase(applicantModel = applicantModel)
 
                 }
             }
@@ -43,13 +43,12 @@ class AddApplicantDataViewModel @Inject constructor(val roomDatabase: Applicants
 
     fun saveApplicantInDatabase(applicantModel: ApplicantModel) {
         viewModelScope.launch {
-            _state.value = MainState.Loading
+            _state.value = SaveApplicantsState.Loading
             _state.value = try {
-                roomDatabase.getApplicantsDAO()
-                    .insertApplicantDataIntoRoomDatabase(applicantModel = applicantModel)
-                MainState.Done
+                applicantsRepository.saveApplicantsInDatabase(applicantModel = applicantModel)
+                SaveApplicantsState.Done
             } catch (e: Exception) {
-                MainState.Error(e.localizedMessage!!)
+                SaveApplicantsState.Error(e.localizedMessage!!)
 
             }
         }
