@@ -1,6 +1,7 @@
-package com.dev_abdallah_el_zoka.madarsoftandroidtask
+package com.dev_abdallah_el_zoka.madarsoftandroidtask.di
 
 import android.content.Context
+import com.dev_abdallah_el_zoka.madarsoftandroidtask.model.room.ApplicantsRoomDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -10,7 +11,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class DatabaseModule {
+class DatabaseModule {
 
     @Provides
     @Singleton

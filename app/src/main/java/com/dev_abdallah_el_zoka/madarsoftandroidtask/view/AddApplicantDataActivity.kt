@@ -1,4 +1,4 @@
-package com.dev_abdallah_el_zoka.madarsoftandroidtask
+package com.dev_abdallah_el_zoka.madarsoftandroidtask.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,7 +9,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
+import com.dev_abdallah_el_zoka.madarsoftandroidtask.*
 import com.dev_abdallah_el_zoka.madarsoftandroidtask.databinding.ActivityAddApplicantDataBinding
+import com.dev_abdallah_el_zoka.madarsoftandroidtask.state.SaveApplicantsState
+import com.dev_abdallah_el_zoka.madarsoftandroidtask.view_model.AddApplicantDataViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collect
@@ -68,7 +71,7 @@ class AddApplicantDataActivity : AppCompatActivity(), Navigator {
 
 
                                 }
-                        alertDialogBuilder.create()
+                        alertDialogBuilder.create().show()
                     }
 
 

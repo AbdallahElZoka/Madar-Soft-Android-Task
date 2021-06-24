@@ -1,13 +1,14 @@
-package com.dev_abdallah_el_zoka.madarsoftandroidtask
+package com.dev_abdallah_el_zoka.madarsoftandroidtask.model.room
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.dev_abdallah_el_zoka.madarsoftandroidtask.model.pojo.ApplicantModel
 
 @Database(
     entities = [
-
+        ApplicantModel::class
     ], version = 1
 )
 abstract class ApplicantsRoomDatabase : RoomDatabase() {

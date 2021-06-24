@@ -1,9 +1,10 @@
-package com.dev_abdallah_el_zoka.madarsoftandroidtask
+package com.dev_abdallah_el_zoka.madarsoftandroidtask.model.room
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.dev_abdallah_el_zoka.madarsoftandroidtask.model.pojo.ApplicantModel
 
 @Dao
 interface ApplicantsDAO {

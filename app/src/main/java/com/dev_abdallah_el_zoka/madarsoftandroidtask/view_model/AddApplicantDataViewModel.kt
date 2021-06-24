@@ -1,7 +1,12 @@
-package com.dev_abdallah_el_zoka.madarsoftandroidtask
+package com.dev_abdallah_el_zoka.madarsoftandroidtask.view_model
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dev_abdallah_el_zoka.madarsoftandroidtask.Navigator
+import com.dev_abdallah_el_zoka.madarsoftandroidtask.intent.SaveApplicantsIntent
+import com.dev_abdallah_el_zoka.madarsoftandroidtask.state.SaveApplicantsState
+import com.dev_abdallah_el_zoka.madarsoftandroidtask.model.pojo.ApplicantModel
+import com.dev_abdallah_el_zoka.madarsoftandroidtask.repo.ApplicantsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
@@ -71,7 +76,9 @@ class AddApplicantDataViewModel @Inject constructor(val applicantsRepository: Ap
             ageErrorStateFlow.value = true
             return false
         }
-
+        viewModelScope.launch {
+            userIntent.send(SaveApplicantsIntent.SaveApplicants)
+        }
         handleIntent(
             ApplicantModel(
                 applicantName = name,

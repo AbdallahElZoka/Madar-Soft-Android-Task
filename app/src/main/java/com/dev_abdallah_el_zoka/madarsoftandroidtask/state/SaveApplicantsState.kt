@@ -1,4 +1,4 @@
-package com.dev_abdallah_el_zoka.madarsoftandroidtask
+package com.dev_abdallah_el_zoka.madarsoftandroidtask.state
 
 sealed class SaveApplicantsState {
     object Idle : SaveApplicantsState()
