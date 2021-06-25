@@ -2,6 +2,7 @@ package com.dev_abdallah_el_zoka.madarsoftandroidtask.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -13,6 +14,7 @@ import com.dev_abdallah_el_zoka.madarsoftandroidtask.*
 import com.dev_abdallah_el_zoka.madarsoftandroidtask.databinding.ActivityAddApplicantDataBinding
 import com.dev_abdallah_el_zoka.madarsoftandroidtask.state.SaveApplicantsState
 import com.dev_abdallah_el_zoka.madarsoftandroidtask.view_model.AddApplicantDataViewModel
+import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collect
@@ -40,7 +42,63 @@ class AddApplicantDataActivity : AppCompatActivity(), Navigator {
         }
         addApplicantDataViewModel.navigator = this
         activityAddApplicantDataBinding.viewModel = addApplicantDataViewModel
-
+        lifecycleScope.launch {
+            addApplicantDataViewModel.jobTitleErrorStateFlow.collect {
+                if (it.blankError == true) {
+                    Log.e("MyTag", "Job Title Has Blank Error ")
+                    activityAddApplicantDataBinding.jobEditText.error =
+                        "Job title field is required"
+                    activityAddApplicantDataBinding.jobEditTextLayout.endIconMode =
+                        TextInputLayout.END_ICON_NONE
+                } else if (it.containSymbolsError == true) {
+                    Log.e("MyTag", "Name Contains Symbols")
+                    activityAddApplicantDataBinding.jobEditText.error =
+                        "Job Title can't contain numbers or special characters"
+                    activityAddApplicantDataBinding.jobEditTextLayout.endIconMode =
+                        TextInputLayout.END_ICON_NONE
+                } else {
+                    Log.e("MyTag", "Job Title Has NO Blank Error ")
+                    activityAddApplicantDataBinding.jobEditText.error = null
+                    activityAddApplicantDataBinding.jobEditTextLayout.endIconMode =
+                        TextInputLayout.END_ICON_CLEAR_TEXT
+                }
+            }
+        }
+        lifecycleScope.launch {
+            addApplicantDataViewModel.ageErrorStateFlow.collect {
+                if (it.blankError == true) {
+                    Log.e("MyTag", "Age Has Blank Error ")
+                    activityAddApplicantDataBinding.ageEditText.error =
+                        "Required and enter valid age"
+                    activityAddApplicantDataBinding.ageEditTextLayout.endIconMode =
+                        TextInputLayout.END_ICON_NONE
+                } else {
+                    Log.e("MyTag", "Age Has NO Blank Error ")
+                    activityAddApplicantDataBinding.ageEditText.error = null
+                    activityAddApplicantDataBinding.ageEditTextLayout.endIconMode =
+                        TextInputLayout.END_ICON_CLEAR_TEXT
+                }
+            }
+        }
+        lifecycleScope.launch {
+            addApplicantDataViewModel.nameErrorStateFlow.collect {
+                if (it.blankError == true) {
+                    Log.e("MyTag", "Name Has Blank Error ")
+                    activityAddApplicantDataBinding.nameEditText.error = "Name field is required"
+                } else if (it.containSymbolsError == true) {
+                    Log.e("MyTag", "Name Contains Symbols")
+                    activityAddApplicantDataBinding.nameEditText.error =
+                        "Name can't contain numbers or special characters"
+                    activityAddApplicantDataBinding.nameEditTextLayout.endIconMode =
+                        TextInputLayout.END_ICON_NONE
+                } else {
+                    Log.e("MyTag", "Name Has NO Blank Error ")
+                    activityAddApplicantDataBinding.nameEditText.error = null
+                    activityAddApplicantDataBinding.nameEditTextLayout.endIconMode =
+                        TextInputLayout.END_ICON_CLEAR_TEXT
+                }
+            }
+        }
         lifecycleScope.launch {
             addApplicantDataViewModel.applicantsState.collect {
                 when (it) {
@@ -78,8 +136,6 @@ class AddApplicantDataActivity : AppCompatActivity(), Navigator {
                                 }
                         alertDialogBuilder.create().show()
                     }
-
-
                 }
             }
 
