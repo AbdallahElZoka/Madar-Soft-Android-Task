@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <import type="com.dev_abdallah_el_zoka.madarsoftandroidtask.view_model.AddApplicantDataViewModel" />
+
+        <variable
+            name="viewModel"
+            type="com.dev_abdallah_el_zoka.madarsoftandroidtask.view_model.AddApplicantDataViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.AddApplicantDataActivity">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/name_edit_text_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="24dp"
+            android:hint="@string/applicant_name"
+            app:endIconMode="clear_text"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/name_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="text"
+
+                />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/job_edit_text_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="24dp"
+            android:hint="@string/job_title"
+            app:endIconMode="clear_text"
+            app:layout_constraintTop_toBottomOf="@id/name_edit_text_layout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/job_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="text" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/age_edit_text_layout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:hint="@string/age"
+            app:endIconMode="clear_text"
+            app:layout_constraintEnd_toStartOf="@id/gender_spinner"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/job_edit_text_layout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/age_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Spinner
+            android:id="@+id/gender_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="64dp"
+            android:layout_marginTop="24dp"
+            android:entries="@array/gender_array"
+            android:padding="16dp"
+            app:layout_constraintBottom_toBottomOf="@id/age_edit_text_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/age_edit_text_layout"
+            app:layout_constraintTop_toBottomOf="@id/job_edit_text_layout" />
+
+        <Button
+            android:id="@+id/submit_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:padding="16dp"
+            android:text="@string/submit"
+            android:textAllCaps="false"
+            app:layout_constraintEnd_toEndOf="@id/show_saved_applicants_button"
+            app:layout_constraintStart_toStartOf="@id/show_saved_applicants_button"
+            app:layout_constraintTop_toBottomOf="@id/age_edit_text_layout" />
+
+        <ProgressBar
+            android:id="@+id/loading_progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="16dp"
+            android:indeterminateTint="#ffffff"
+            android:padding="2dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/submit_button"
+            app:layout_constraintEnd_toEndOf="@id/submit_button"
+            app:layout_constraintStart_toStartOf="@id/submit_button"
+            app:layout_constraintTop_toTopOf="@id/submit_button" />
+
+        <Button
+            android:id="@+id/show_saved_applicants_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:onClick="@{()->viewModel.navigateToShowApplicantsDetailsActivity()}"
+            android:padding="16dp"
+            android:text="@string/show_saved_applicants"
+            android:textAllCaps="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/submit_button" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
