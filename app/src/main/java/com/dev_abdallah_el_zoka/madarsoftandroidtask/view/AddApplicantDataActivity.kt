@@ -38,6 +38,8 @@ class AddApplicantDataActivity : AppCompatActivity(), Navigator {
                 gender = if (activityAddApplicantDataBinding.genderSpinner.selectedItemPosition == 0) "Male" else "Female"
             )
         }
+        addApplicantDataViewModel.navigator = this
+        activityAddApplicantDataBinding.viewModel = addApplicantDataViewModel
 
         lifecycleScope.launch {
             addApplicantDataViewModel.applicantsState.collect {
@@ -61,6 +63,9 @@ class AddApplicantDataActivity : AppCompatActivity(), Navigator {
                         ).show()
                     }
                     is SaveApplicantsState.Done -> {
+                        activityAddApplicantDataBinding.submitButton.text =
+                            getString(R.string.submit)
+                        activityAddApplicantDataBinding.loadingProgressBar.visibility = View.GONE
                         val alertDialogBuilder: AlertDialog.Builder =
                             AlertDialog.Builder(this@AddApplicantDataActivity)
                                 .setTitle(getString(R.string.applicant_added_successfully))

@@ -36,6 +36,9 @@ class ShowApplicantsDetailsActivity : AppCompatActivity() {
             DataBindingUtil.setContentView(this, R.layout.activity_show_applicants_details)
         linearLayoutManager = LinearLayoutManager(this@ShowApplicantsDetailsActivity)
         applicantsAdapter = ApplicantsAdapter(null)
+        activityShowApplicantsDetailsActivity.applicantsRecyclerView.layoutManager =
+            linearLayoutManager
+        activityShowApplicantsDetailsActivity.applicantsRecyclerView.adapter = applicantsAdapter
         lifecycleScope.launch {
             showApplicantsDetailsViewModel.userIntent.send(FetchApplicantsIntent.FetchApplicants)
             showApplicantsDetailsViewModel.applicantsState.collect {
@@ -58,8 +61,6 @@ class ShowApplicantsDetailsActivity : AppCompatActivity() {
                                     getString(R.string.ok)
                                 ) { dialog, which ->
                                     dialog.dismiss()
-
-
                                 }
                         alertDialogBuilder.create().show()
 
